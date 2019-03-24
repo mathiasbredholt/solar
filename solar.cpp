@@ -144,6 +144,7 @@ const float PID::kp = 0.005;
 const float PID::ki = 0.002;
 
 const RgbColor BLACK = { 0, 0, 0 };
+const RgbColor WHITE = { 255, 255, 255 };
 
 const RgbColor CIVIL_1 = { 255, 19, 0 };
 const RgbColor CIVIL_2 = { 0, 247, 179 };
@@ -248,12 +249,16 @@ void change_color_thread_handle() {
         int idx = rand() % 4;
         State state = get_state();
 
-        printf("State: %d\n", state);
+        std::time_t now = time(0);
+        tm *ltm = localtime(&now);
+
+        printf("Time is %2d:%02d, State: %d\n", ltm->tm_hour, ltm->tm_min, state);
 
         if (state == OFF) {
             color_map[0] = BLACK;
         } else if (state == CIVIL) {
-            color_map[0] = CIVIL_PALETTE[idx];
+            // color_map[0] = CIVIL_PALETTE[idx];
+            color_map[0] = WHITE;
         } else if (state == NAUTICAL) {
             color_map[0] = NAUTICAL_PALETTE[idx];
         } else if (state == ASTRONIMICAL) {
