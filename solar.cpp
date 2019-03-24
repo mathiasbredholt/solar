@@ -146,31 +146,31 @@ const float PID::ki = 0.002;
 const RgbColor BLACK = { 0, 0, 0 };
 const RgbColor WHITE = { 255, 255, 255 };
 
-const RgbColor CIVIL_1 = { 255, 19, 0 };
-const RgbColor CIVIL_2 = { 0, 247, 179 };
-const RgbColor CIVIL_3 = { 114, 252, 0 };
-const RgbColor CIVIL_4 = { 0, 250, 44 };
+const RgbColor CIVIL_1 = { 255, 228, 0 };
+const RgbColor CIVIL_2 = { 255, 199, 0 };
+const RgbColor CIVIL_3 = { 255, 158, 0 };
+const RgbColor CIVIL_4 = { 255, 116, 0 };
 
 const RgbColor CIVIL_PALETTE[4] = { CIVIL_1, CIVIL_2, CIVIL_3, CIVIL_4 };
 
-const RgbColor NAUTICAL_1 = { 247, 0, 247 };
-const RgbColor NAUTICAL_2 = { 160, 253, 0 };
-const RgbColor NAUTICAL_3 = { 255, 250, 0 };
-const RgbColor NAUTICAL_4 = { 211, 254, 0 };
+const RgbColor NAUTICAL_1 = { 255, 127, 0 };
+const RgbColor NAUTICAL_2 = { 255, 98, 0};
+const RgbColor NAUTICAL_3 = { 255, 61, 0 };
+const RgbColor NAUTICAL_4 = { 252, 0, 18 };
 
 const RgbColor NAUTICAL_PALETTE[4] = { NAUTICAL_1, NAUTICAL_2, NAUTICAL_3, NAUTICAL_4 };
 
-const RgbColor ASTRONOMICAL_1 = { 11, 3, 214 };
-const RgbColor ASTRONOMICAL_2 = { 255, 218, 0 };
-const RgbColor ASTRONOMICAL_3 = { 255, 169, 0 };
-const RgbColor ASTRONOMICAL_4 = { 255, 194, 0 };
+const RgbColor ASTRONOMICAL_1 = { 253, 0, 13 };
+const RgbColor ASTRONOMICAL_2 = { 244, 0, 65 };
+const RgbColor ASTRONOMICAL_3 = { 235, 0, 115 };
+const RgbColor ASTRONOMICAL_4 = { 217, 0, 199 };
 
 const RgbColor ASTRONOMICAL_PALETTE[4] = { ASTRONOMICAL_1, ASTRONOMICAL_2, ASTRONOMICAL_3, ASTRONOMICAL_4 };
 
-const RgbColor AURORA_1 = { 194, 3, 221 };
-const RgbColor AURORA_2 = { 12, 97, 221 };
-const RgbColor AURORA_3 = { 0, 218, 188 };
-const RgbColor AURORA_4 = { 0, 227, 92 };
+const RgbColor AURORA_1 = { 217, 0, 199 };
+const RgbColor AURORA_2 = { 7, 99, 234 };
+const RgbColor AURORA_3 = { 0, 232, 200 };
+const RgbColor AURORA_4 = { 0, 238, 96 };
 
 const RgbColor AURORA_PALETTE[4] = { AURORA_1, AURORA_2, AURORA_3, AURORA_4 };
 
@@ -273,7 +273,7 @@ void change_color_thread_handle() {
             color_controllers[i * 3 + 1].set_target(color_map[i].g);
             color_controllers[i * 3 + 2].set_target(color_map[i].b);
         }
-        std::this_thread::sleep_for(10s);
+        std::this_thread::sleep_for(30s);
     }
 }
 
