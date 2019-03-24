@@ -217,7 +217,6 @@ RgbColor generate_color() {
 State get_state() {
     std::time_t now = time(0);
     tm *ltm = localtime(&now);
-
     // CHANGE TIMES
     if (ltm->tm_hour == 18) {
         if (ltm->tm_min >= 37) {
@@ -252,19 +251,21 @@ void change_color_thread_handle() {
         std::time_t now = time(0);
         tm *ltm = localtime(&now);
 
-        printf("Time is %2d:%02d, State: %d\n", ltm->tm_hour, ltm->tm_min, state);
-
         if (state == OFF) {
             color_map[0] = BLACK;
+            printf("Time is %2d:%02d, State: OFF\n", ltm->tm_hour, ltm->tm_min);
         } else if (state == CIVIL) {
-            // color_map[0] = CIVIL_PALETTE[idx];
-            color_map[0] = WHITE;
+            color_map[0] = CIVIL_PALETTE[idx];
+            printf("Time is %2d:%02d, State: CIVIL\n", ltm->tm_hour, ltm->tm_min);
         } else if (state == NAUTICAL) {
             color_map[0] = NAUTICAL_PALETTE[idx];
+            printf("Time is %2d:%02d, State: NAUTICAL\n", ltm->tm_hour, ltm->tm_min);
         } else if (state == ASTRONIMICAL) {
             color_map[0] = ASTRONOMICAL_PALETTE[idx];
+            printf("Time is %2d:%02d, State: ASTRONIMICAL\n", ltm->tm_hour, ltm->tm_min);
         } else if (state == AURORA) {
             color_map[0] = AURORA_PALETTE[idx];
+            printf("Time is %2d:%02d, State: AURORA\n", ltm->tm_hour, ltm->tm_min);
         }
 
         for (int i = 0; i < NUM_LEDS; ++i) {
