@@ -253,19 +253,19 @@ void change_color_thread_handle() {
 
         if (state == OFF) {
             color_map[0] = BLACK;
-            printf("Time is %2d:%02d, State: OFF\n", ltm->tm_hour, ltm->tm_min);
+            printf("Time is %2d:%02d, State: OFF, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == CIVIL) {
             color_map[0] = CIVIL_PALETTE[idx];
-            printf("Time is %2d:%02d, State: CIVIL\n", ltm->tm_hour, ltm->tm_min);
+            printf("Time is %2d:%02d, State: CIVIL, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == NAUTICAL) {
             color_map[0] = NAUTICAL_PALETTE[idx];
-            printf("Time is %2d:%02d, State: NAUTICAL\n", ltm->tm_hour, ltm->tm_min);
+            printf("Time is %2d:%02d, State: NAUTICAL, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == ASTRONIMICAL) {
             color_map[0] = ASTRONOMICAL_PALETTE[idx];
-            printf("Time is %2d:%02d, State: ASTRONIMICAL\n", ltm->tm_hour, ltm->tm_min);
+            printf("Time is %2d:%02d, State: ASTRONIMICAL, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == AURORA) {
             color_map[0] = AURORA_PALETTE[idx];
-            printf("Time is %2d:%02d, State: AURORA\n", ltm->tm_hour, ltm->tm_min);
+            printf("Time is %2d:%02d, State: AURORA, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         }
 
         for (int i = 0; i < NUM_LEDS; ++i) {
