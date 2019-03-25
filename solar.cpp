@@ -140,39 +140,73 @@ class PID {
     float i_val;
 };
 
-const float PID::kp = 0.005;
-const float PID::ki = 0.002;
+const float PID::kp = 0.002;
+const float PID::ki = 0.001;
 
 const RgbColor BLACK = { 0, 0, 0 };
-const RgbColor WHITE = { 255, 255, 255 };
+// const RgbColor WHITE = { 255, 255, 255 };
 
-const RgbColor CIVIL_1 = { 255, 228, 0 };
-const RgbColor CIVIL_2 = { 255, 199, 0 };
-const RgbColor CIVIL_3 = { 255, 158, 0 };
-const RgbColor CIVIL_4 = { 255, 116, 0 };
+// const RgbColor CIVIL_1 = { 165, 113, 0 };
+// const RgbColor CIVIL_2 = { 165, 87, 0 };
+// const RgbColor CIVIL_3 = { 165, 158, 0 };
+// const RgbColor CIVIL_4 = { 255, 116, 0 };
 
-const RgbColor CIVIL_PALETTE[4] = { CIVIL_1, CIVIL_2, CIVIL_3, CIVIL_4 };
+// const RgbColor CIVIL_PALETTE[4] = { CIVIL_1, CIVIL_2, CIVIL_3, CIVIL_4 };
 
-const RgbColor NAUTICAL_1 = { 255, 127, 0 };
-const RgbColor NAUTICAL_2 = { 255, 98, 0};
-const RgbColor NAUTICAL_3 = { 255, 61, 0 };
-const RgbColor NAUTICAL_4 = { 252, 0, 18 };
+const std::vector<const RgbColor> CIVIL_PALETTE {
+    {  165, 113, 0 },
+    {  165, 87, 0 },
+    {  165, 75, 0 },
+    {  170, 70, 0 },
+    {  175, 67, 0 }
+};
 
-const RgbColor NAUTICAL_PALETTE[4] = { NAUTICAL_1, NAUTICAL_2, NAUTICAL_3, NAUTICAL_4 };
+// const RgbColor NAUTICAL_1 = { 255, 127, 0 };
+// const RgbColor NAUTICAL_2 = { 255, 98, 0};
+// const RgbColor NAUTICAL_3 = { 255, 61, 0 };
+// const RgbColor NAUTICAL_4 = { 252, 0, 18 };
 
-const RgbColor ASTRONOMICAL_1 = { 253, 0, 13 };
-const RgbColor ASTRONOMICAL_2 = { 244, 0, 65 };
-const RgbColor ASTRONOMICAL_3 = { 235, 0, 115 };
-const RgbColor ASTRONOMICAL_4 = { 217, 0, 199 };
+// const RgbColor NAUTICAL_PALETTE[4] = { NAUTICAL_1, NAUTICAL_2, NAUTICAL_3, NAUTICAL_4 };
 
-const RgbColor ASTRONOMICAL_PALETTE[4] = { ASTRONOMICAL_1, ASTRONOMICAL_2, ASTRONOMICAL_3, ASTRONOMICAL_4 };
+const std::vector<const RgbColor> NAUTICAL_PALETTE {
+    {  190, 67, 0 },
+    {  190, 56, 0 },
+    {  215, 56, 0 },
+    {  215, 57, 2 },
+    {  230, 57, 4 }
+};
 
-const RgbColor AURORA_1 = { 217, 0, 199 };
-const RgbColor AURORA_2 = { 7, 99, 234 };
-const RgbColor AURORA_3 = { 0, 232, 200 };
-const RgbColor AURORA_4 = { 0, 238, 96 };
+// const RgbColor ASTRONOMICAL_1 = { 253, 0, 13 };
+// const RgbColor ASTRONOMICAL_2 = { 244, 0, 65 };
+// const RgbColor ASTRONOMICAL_3 = { 235, 0, 115 };
+// const RgbColor ASTRONOMICAL_4 = { 217, 0, 199 };
 
-const RgbColor AURORA_PALETTE[4] = { AURORA_1, AURORA_2, AURORA_3, AURORA_4 };
+// const RgbColor ASTRONOMICAL_PALETTE[4] = { ASTRONOMICAL_1, ASTRONOMICAL_2, ASTRONOMICAL_3, ASTRONOMICAL_4 };
+
+const std::vector<const RgbColor> ASTRONOMICAL_PALETTE {
+    {  240, 50, 6 },
+    {  240, 40, 8 },
+    {  240, 35, 10 },
+    {  240, 30, 18 },
+    {  230, 30, 30 }
+};
+
+// const RgbColor AURORA_1 = { 217, 0, 199 };
+// const RgbColor AURORA_2 = { 7, 99, 234 };
+// const RgbColor AURORA_3 = { 0, 232, 200 };
+// const RgbColor AURORA_4 = { 0, 238, 96 };
+
+// const RgbColor AURORA_PALETTE[4] = { AURORA_1, AURORA_2, AURORA_3, AURORA_4 };
+
+const std::vector<const RgbColor> AURORA_PALETTE {
+    {  231, 14, 50 },
+    {  240, 14, 172 },
+    {  139, 2, 206 },
+    {  67, 2, 206 },
+    {  5, 221, 118 },
+    {  5, 221, 87 },
+    {  29, 255, 57 }
+};
 
 const int NUM_CONTROLLERS = NUM_LEDS * 3;
 
@@ -244,9 +278,7 @@ void change_color_thread_handle() {
     }
 
     while (true) {
-        std::rotate(color_map.rbegin(), color_map.rbegin() + 1, color_map.rend());
-        int idx = rand() % 4;
-        State state = get_state();
+        std::rotate(color_map.rbegin(), color_map.rbegin() + 1, color_map.rend());        State state = get_state();
 
         std::time_t now = time(0);
         tm *ltm = localtime(&now);
@@ -255,15 +287,19 @@ void change_color_thread_handle() {
             color_map[0] = BLACK;
             printf("Time is %2d:%02d, State: OFF, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == CIVIL) {
+            int idx = rand() % CIVIL_PALETTE.size();
             color_map[0] = CIVIL_PALETTE[idx];
             printf("Time is %2d:%02d, State: CIVIL, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == NAUTICAL) {
+            int idx = rand() % NAUTICAL_PALETTE.size();
             color_map[0] = NAUTICAL_PALETTE[idx];
             printf("Time is %2d:%02d, State: NAUTICAL, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == ASTRONIMICAL) {
+            int idx = rand() % ASTRONOMICAL_PALETTE.size();
             color_map[0] = ASTRONOMICAL_PALETTE[idx];
             printf("Time is %2d:%02d, State: ASTRONIMICAL, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         } else if (state == AURORA) {
+            int idx = rand() % AURORA_PALETTE.size();
             color_map[0] = AURORA_PALETTE[idx];
             printf("Time is %2d:%02d, State: AURORA, R %d G %d B %d\n", ltm->tm_hour, ltm->tm_min, color_map[0].r, color_map[0].g, color_map[0].b);
         }
